@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Maze Runner - Linux Commands</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0d1117; font-family: 'Segoe UI', Arial, sans-serif; color: #e6edf3; }
+        #game-container { display: flex; flex-direction: column; align-items: center; padding: 10px; }
+        canvas { display: block; border-radius: 8px; }
+
+        #inventory {
+            width: 760px;
+            margin-top: 8px;
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 12px;
+            min-height: 60px;
+        }
+        #inventory h3 {
+            font-size: 14px;
+            color: #7d8590;
+            margin-bottom: 8px;
+        }
+        #inv-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .inv-item {
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            border: 2px solid transparent;
+            transition: all 0.15s;
+            max-width: 240px;
+            user-select: none;
+        }
+        .inv-item:hover {
+            filter: brightness(1.2);
+        }
+        .inv-item.cmd {
+            background: #1a5c34;
+            color: #7ee8a8;
+        }
+        .inv-item.def {
+            background: #1a3a5c;
+            color: #79b8ff;
+        }
+        .inv-item.selected {
+            border-color: #e94560;
+            filter: brightness(1.3);
+        }
+        .inv-item .type-tag {
+            font-size: 11px;
+            opacity: 0.7;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        #score-bar {
+            width: 760px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 8px;
+            padding: 6px 12px;
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        #score-bar .score { color: #e94560; font-weight: bold; font-size: 18px; }
+        #score-bar .hint { color: #7d8590; }
+
+        #flash-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.15s;
+            z-index: 1000;
+        }
+        #flash-overlay.green { background: rgba(46, 204, 113, 0.25); opacity: 1; }
+        #flash-overlay.red { background: rgba(231, 76, 60, 0.25); opacity: 1; }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <canvas id="game-canvas"></canvas>
+        <div id="score-bar">
+            <span class="hint">Ramasse les items dans le labyrinthe, puis clique 2 items pour les matcher</span>
+            <span class="score" id="score-display">Score: 0 / 6</span>
+        </div>
+        <div id="inventory">
+            <h3>Inventaire</h3>
+            <div id="inv-items"></div>
+        </div>
+    </div>
+    <div id="flash-overlay"></div>
+    <script src="kaplay.min.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
